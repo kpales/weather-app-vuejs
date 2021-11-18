@@ -14,13 +14,15 @@
 
       <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
         <div class="location-box">
-          <div class="location">{{weather.name}},{{ weather.sys.country}}</div>
+          <div class="location">{{weather.name}} , {{ weather.sys.country}}</div>
           <div class="date">{{dateBuilder()}}</div>
         </div>
 
         <div class="weather-box">
           <div class="temp">{{ Math.round(weather.main.temp)}}°c</div>
+          <div class="wind">Wind speed : {{Math.round(weather.wind.speed)}}Km/h</div>
           <div class="weather">{{weather.weather[0].main}}</div>
+          <img v-bind:src="'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '.png'" alt="">
         </div>
       </div>
     </main>
@@ -35,6 +37,7 @@ export default {
     return{
       api_key: '01a95ff44b04502cd87a604244df355f',
       url_base: 'http://api.openweathermap.org/data/2.5/',
+      img_url: 'http://openweathermap.org/img/wn/',
       query:'',
       weather:{}
     }
@@ -84,8 +87,8 @@ body{
 
 #app{
   background-image: url('./assets/cold-bg.jpeg');
-  background-size:cover;
-  background-position: bottom;
+  /*background-size:cover;
+  background-position: bottom;*/
   transition:0.4s;
 }
 #app.warm{
@@ -157,7 +160,7 @@ text-align:center;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 0.25);
   border-radius:16px;
-  margin:30px 0px;
+  margin: 30px 0 10px 0 ;
 
   box-shadow: 3px 6px rgba(0 , 0, 0, 0.25);
 }
@@ -168,5 +171,12 @@ text-align:center;
   font-weight: 700;
   font-style:italic;
   text-shadow: 3px 6px rgba(0, 0, 0,0.25);
+}
+.weather-box .wind{
+   color:#fff;
+  font-size:22px;
+  font-style:italic;
+  text-shadow: 3px 6px rgba(0, 0, 0,0.25);
+  margin:0px 0px 30px 0px;
 }
 </style>
